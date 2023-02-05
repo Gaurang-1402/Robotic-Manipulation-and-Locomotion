@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from matrices_plotting import plot_two_axes, rotation_matrix_3d, plot_scatter_point, plot_vector
+from matrices_plotting import plot_two_axes, get_rotation_matrix_3d, plot_scatter_point, plot_vector
 
 Aorigin = np.array([0, 0, 0])
 X_A = np.array([1, 0, 0])
@@ -9,33 +9,44 @@ Y_A = np.array([0, 1, 0])
 Z_A = np.array([0, 0, 1])
 
 # ========================
+# * offset of B origin from A origin (aka position vector, p)
+p = p_idk = np.array([[-0.02783280], [-0.41963357], [0.23624219]])
 
-# * offset of B origin from A origin
-Borigin_A = p_idk = np.array([-0.75658740, 0.18150963, 0.13073416])
+# the code below is to flatten the list of lists for matplotlib plotting requirements 
+Borigin_A = []
+for sublist in p:
+    Borigin_A.extend(sublist)
 
 # theta = np.pi/3
-R_x = R_idk = np.array([[0.65762764, 0.75282666, 0.02789102], [-0.06765058, 0.02214137, 0.99746336], [0.75029946, -0.65784632, 0.06548994]])
+R_x = R_idk = np.array([[-0.28005872, -0.50520401, -0.81629408], [-0.40937655, 0.83197963, -0.37446060], [0.86831904, 0.22930070, -0.43982182]])
 
-point_1 = q1_in0 = np.array([[0.99596144], [0.53192520], [0.05159244]])
+point_1 = q1_in0 = np.array([[-0.32799012], [1.00892270], [0.22044525]])
 
-point_2 = q1_in1 = np.array([[-0.09889090], [0.90913361], [0.69246723]])
+point_2 = q1_in1 = np.array([[-0.15758880], [0.63601973], [0.02922015]])
 
-point_3 = q2_in1 = np.array([[-0.59616509], [0.77999788], [-0.85938971]])
+point_3 = q2_in1 = np.array([[0.91762236], [-0.50850147], [0.40716952]])
 
-[(R_idk, p_idk), (R_idk.T, p_idk), (R_idk, -p_idk), (R_idk, -p_idk)]
+possibilities = [(R_idk, p_idk), (R_idk.T, p_idk), (R_idk, -p_idk), (R_idk.T, -p_idk)]
 
-
-for (R, p) in [(R_idk, p_idk), (R_idk.T, p_idk), (R_idk, -p_idk), (R_idk, -p_idk)]:
-    zero_into_one = np.dot(R, point_1) + p
+for (R, p) in possibilities:
+    zero_into_one = np.dot(R, point_1) + p.reshape(3, 1)
     
     if np.allclose(zero_into_one, point_2):
         print('found it')
         print(R)
         print(p)
         break
+    
+# Convert zero_into_one Rotation matrix and position vector to one_into_zero Rotation matrix and position vector
 
-# find out rotation matrix from 1 to 0
-# use that to get the point q2_in0
+R_one_to_zero = R.T
+p_one_to_zero = -np.dot(R.T, p)
+
+q2_in0 = np.dot(R_one_to_zero, q2_in1) + p_one_to_zero.reshape(3, 1)
+q2_in0
+
+# q2_in1 = np.dot(R, q2_in1) + p.reshape(3, 1)
+# q2_in1
 
 # ========================
 
