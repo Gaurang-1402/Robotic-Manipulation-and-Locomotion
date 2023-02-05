@@ -61,8 +61,6 @@ plot_scatter_point(ax, point_1, False, Aorigin, Borigin_A, 'pink', marker_shape=
 
 
 
-# ax.set_xlim([-2, 2])
-# ax.set_ylim([-2, 2])
-# ax.set_zlim([-2, 2])
+
 
 plt.show()

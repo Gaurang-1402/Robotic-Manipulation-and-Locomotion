@@ -48,7 +48,7 @@ def plot_vector(ax, origin, vector, vec_color):
     ax.quiver(origin[0], origin[1], origin[2], vector[0], vector[1], vector[2], color=vec_color)
 
     
-def rotation_matrix_3d(axis, theta):
+def get_rotation_matrix_3d(axis, theta):
     if axis == 'x':
         # Rotation matrix about the x-axis
         R_x = np.array([[1, 0, 0],
