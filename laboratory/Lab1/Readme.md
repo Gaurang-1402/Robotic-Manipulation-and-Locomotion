@@ -11,7 +11,7 @@ The goal of the laboratory are
 1. get an introduction to [PyBullet](https://pybullet.org/wordpress/), a popular robotic simulator
 2. learn how to access sensors and actuators
 3. understand the sense-plan-act loop
-4. write your first controller
+4. write your controller
 
 
 ## Pre-requisites
